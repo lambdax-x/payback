@@ -15,14 +15,14 @@ data MetaData = MetaData
     , location :: Maybe Text
     }
 
-newtype User = User { name :: Text }
+newtype User = User { name :: Text } deriving (Eq, Show)
 
 data Amount = Amount
     { value :: Int
     , currency :: Currency
-    }
+    } deriving (Eq, Show)
 
-data Currency = EUR | CHF
+data Currency = EUR | CHF deriving (Eq, Show)
 
 data DateTime = DateTime
     { date :: Date
