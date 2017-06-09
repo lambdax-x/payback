@@ -18,7 +18,7 @@ data MetaData = MetaData
 newtype User = User { name :: Text } deriving (Eq, Show)
 
 data Amount = Amount
-    { value :: Int
+    { value :: Float
     , currency :: Currency
     } deriving (Eq, Show)
 
