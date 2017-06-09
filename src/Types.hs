@@ -15,7 +15,7 @@ data MetaData = MetaData
     , location :: Maybe Text
     }
 
-data User = User { name :: Text }
+newtype User = User { name :: Text }
 
 data Amount = Amount
     { value :: Int
