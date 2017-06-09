@@ -10,7 +10,7 @@ data Transaction = Transaction { source :: User
                                , grantees :: [(User, Amount)]
                                }
 
-data MetaData = MetaData { dataTime :: Maybe DateTime
+data MetaData = MetaData { dateTime :: Maybe DateTime
                          , location :: Maybe Text
                          }
 
