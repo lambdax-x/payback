@@ -21,5 +21,6 @@ executable payback
                      , Payback
   build-depends:       base >= 4.7 && < 5
                      , text
-                     , megaparsec
+                     , aeson
+                     , bytestring
                      , hashmap >= 1.3.2
