@@ -17,9 +17,9 @@ updateDebts debts trans = foldl addDebt debts $ debtors trans
 
         combine :: [Amount] -> [Amount] -> [Amount]
         combine as [] = as
-        combine new@[Amount nv nc] (a@(Amount ov oc):as)
-            | oc == nc = Amount { value = ov + nv, currency = nc}:as
-            | otherwise = a:(combine new as)
+        combine new@[Amount nv nc] (a@(Amount ov oc) : as)
+            | oc == nc = Amount { value = ov + nv, currency = nc} : as
+            | otherwise = a : (combine new as)
 
 computeDebts :: [Transaction] -> Debts
 computeDebts = foldl updateDebts M.empty
