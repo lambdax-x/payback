@@ -1,14 +1,14 @@
 {-# LANGUAGE DeriveGeneric #-}
+{-# LANGUAGE OverloadedStrings #-}
 
 module Types where
 
-import GHC.Generics
+import Data.Bifunctor
+import Data.Hashable
+import GHC.Generics (Generic)
 import Data.Text
 import Data.Aeson
 import Data.ByteString.Lazy
-
-mkTx :: ByteString -> Maybe Transaction
-mkTx = decode
 
 data Transaction = Transaction
     { source :: User
@@ -30,10 +30,11 @@ instance FromJSON Metadata
 instance ToJSON Metadata
 
 newtype User = User { name :: Text }
-    deriving (Eq, Show, Generic)
+    deriving (Eq, Show, Generic, Ord)
 
 instance FromJSON User
 instance ToJSON User
+instance Hashable User
 
 data Amount = Amount
     { value :: Float

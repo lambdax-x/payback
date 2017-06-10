@@ -23,4 +23,5 @@ executable payback
                      , text
                      , aeson
                      , bytestring
+                     , hashable
                      , hashmap >= 1.3.2
