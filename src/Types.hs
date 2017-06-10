@@ -1,5 +1,9 @@
+{-# LANGUAGE DeriveGeneric #-}
 module Types where
 
+import Data.Bifunctor
+import Data.Hashable
+import GHC.Generics (Generic)
 import Data.Text
 
 data Transaction = Transaction
@@ -15,7 +19,8 @@ data MetaData = MetaData
     , location :: Maybe Text
     }
 
-newtype User = User { name :: Text } deriving (Eq, Show)
+newtype User = User { name :: Text } deriving (Eq, Show, Generic, Ord)
+instance Hashable User
 
 data Amount = Amount
     { value :: Int
