@@ -4,7 +4,7 @@ import System.Environment
 import qualified Data.ByteString.Lazy as B
 import Control.Monad ((>=>))
 import Data.Aeson (decode)
-import Types
+import Payback.Types
 import Payback (computeDebts)
 
 decodeTxs :: B.ByteString -> Maybe [Transaction]

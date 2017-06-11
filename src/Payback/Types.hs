@@ -1,7 +1,7 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE OverloadedStrings #-}
 
-module Types where
+module Payback.Types where
 
 import Data.Bifunctor
 import Data.Hashable

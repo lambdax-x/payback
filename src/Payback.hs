@@ -4,7 +4,7 @@ module Payback where
 import qualified Data.HashMap as M
 import Data.Function
 import Data.List
-import Types
+import Payback.Types
 
 type Debts = M.Map (User, User) [Amount]
 
