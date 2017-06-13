@@ -8,7 +8,7 @@ import Data.Hashable
 import GHC.Generics (Generic)
 import Data.Text
 import Data.Aeson
-import Data.ByteString.Lazy
+import Data.ByteString.Lazy (ByteString)
 
 data Transaction = Transaction
     { source :: User
@@ -30,7 +30,10 @@ instance FromJSON Metadata
 instance ToJSON Metadata
 
 newtype User = User { name :: Text }
-    deriving (Eq, Show, Generic, Ord)
+    deriving (Eq, Generic, Ord)
+
+instance Show User where
+    show = unpack . name
 
 instance FromJSON User
 instance ToJSON User
@@ -39,13 +42,20 @@ instance Hashable User
 data Amount = Amount
     { value :: Float
     , currency :: Currency
-    } deriving (Eq, Show, Generic)
+    } deriving (Eq, Generic)
+
+instance Show Amount where
+    show (Amount v c) = show v ++ show c
 
 instance FromJSON Amount
 instance ToJSON Amount
 
 data Currency = EUR | CHF
-    deriving (Eq, Show, Generic)
+    deriving (Eq,Generic)
+
+instance Show Currency where
+    show EUR = "€"
+    show CHF = "CHF"
 
 instance FromJSON Currency where
     parseJSON (String "EUR") = return EUR
