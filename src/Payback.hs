@@ -25,7 +25,7 @@ computeDebts :: [Transaction] -> Debts
 computeDebts = foldl updateDebts M.empty
 
 debtsToCSV :: Debts -> [String]
-debtsToCSV ds = mkHeader : concat (mkEntries <$> (fShow <$> M.toList ds))
+debtsToCSV ds = mkHeader : concat (mkEntries . fShow <$> M.toList ds)
     where
         mkLine = intercalate ","
 
