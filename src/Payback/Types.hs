@@ -13,7 +13,7 @@ import Data.ByteString.Lazy
 data Transaction = Transaction
     { source :: User
     , metadata :: Metadata
-    , reason :: Text
+    , reason :: Maybe Text
     , debtors :: [(User, Amount)]
     , grantees :: [(User, Amount)]
     } deriving (Show, Generic)
@@ -44,6 +44,9 @@ data Amount = Amount
 instance FromJSON Amount
 instance ToJSON Amount
 
+mkAmount :: Float -> Currency -> Amount
+mkAmount = Amount
+
 data Currency = EUR | CHF
     deriving (Eq, Show, Generic)
 
@@ -65,14 +68,20 @@ data DateTime = DateTime
 instance FromJSON DateTime
 instance ToJSON DateTime
 
+mkDateTime :: Date -> Time -> DateTime
+mkDateTime = DateTime
+
 data Date = Date
-    { day :: Int
+    { year :: Int
     , month :: Int
-    , year :: Int
+    , day :: Int
     } deriving (Show, Generic)
 
 instance FromJSON Date
 instance ToJSON Date
+
+mkDate :: Int -> Int -> Int -> Date
+mkDate = Date
 
 data Time = Time
     { hour :: Int
@@ -81,3 +90,6 @@ data Time = Time
 
 instance FromJSON Time
 instance ToJSON Time
+
+mkTime :: Int -> Int -> Time
+mkTime = Time
