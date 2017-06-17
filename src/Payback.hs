@@ -12,8 +12,11 @@ updateDebts :: Debts -> Transaction -> Debts
 updateDebts debts trans = foldl addDebt debts $ debtors trans
     where
         addDebt :: Debts -> (User, Amount) -> Debts
-        addDebt currentDebts (usr, amt) =
-            M.insertWith combine (usr, source trans) [amt] currentDebts
+        addDebt currentDebts (usr, amt)
+            | source trans == usr = currentDebts
+            | otherwise =
+                M.insertWith combine (usr, source trans) [amt] currentDebts
+
 
         combine :: [Amount] -> [Amount] -> [Amount]
         combine as [] = as
