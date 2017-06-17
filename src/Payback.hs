@@ -23,3 +23,16 @@ updateDebts debts trans = foldl addDebt debts $ debtors trans
 
 computeDebts :: [Transaction] -> Debts
 computeDebts = foldl updateDebts M.empty
+
+debtsToCSV :: Debts -> [String]
+debtsToCSV ds = mkHeader : concat (mkEntries . fShow <$> M.toList ds)
+    where
+        mkLine = intercalate ","
+
+        mkHeader = mkLine ["from", "to", "amount"]
+
+        fShow ((from, to), as) = ((show from, show to), show <$> as)
+
+        mkEntries (_, []) = []
+        mkEntries (u@(from, to), a : as) = mkLine [from, to, a]
+                                            : (mkEntries (u, as))

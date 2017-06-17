@@ -1,4 +1,3 @@
-{-# OverloadedStrings #-}
 module Payback.Parse (
     parseTransaction,
     parsePaylog
@@ -7,9 +6,8 @@ module Payback.Parse (
 import Control.Monad
 import Text.Megaparsec
 import Text.Megaparsec.Char
-import Text.Megaparsec.ByteString
+import Text.Megaparsec.Text
 import qualified Text.Megaparsec.Lexer as L
-import qualified Data.ByteString as BS
 import qualified Data.Text as T
 import Data.Char
 import Payback.Types
@@ -34,13 +32,13 @@ parseDateTime = between
     (mkDateTime <$> parseDate <* char ' ' <*> parseTime)
 
 parseLocation :: Parser T.Text
-parseLocation = T.pack <$> (symbol "at" >> some printChar)
+parseLocation = T.strip . T.pack <$> (symbol "at" >> some printChar)
 
 parseReason :: Parser T.Text
-parseReason = T.pack <$> (symbol "for" >> some printChar)
+parseReason = T.strip . T.pack <$> (symbol "for" >> some printChar)
 
 parseUser :: Parser User
-parseUser = User . T.pack <$> some name
+parseUser = User . T.strip . T.pack <$> some name
     where name = satisfy (\c -> isPrint c && not (isNumber c)) <?> "name"
 
 parseAmount :: Parser Amount
